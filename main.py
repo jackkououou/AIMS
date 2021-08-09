@@ -1,8 +1,13 @@
 from utils.Album import Album
+from utils.api.google.gsheets import Gsheet
 
-xyz = Album('Totorro', 'Home Alone')
-print(xyz.get_album_artist())
-print(xyz.get_album_title())
-print(xyz.get_genres())
-print(xyz.get_tracks())
-print(xyz.get_art())
+testsheet = Gsheet()
+title = ['Igor', 'Bucket List Project', 'Sax Pax For A Sax']
+artist = ['tyler, the creator', 'Saba', 'Moondog']
+
+for index, rec in enumerate(title):
+    testsheet.add_album(rec, artist[index])
+
+testsheet.update_sheets()
+print(testsheet.get_album(title, artist))
+
