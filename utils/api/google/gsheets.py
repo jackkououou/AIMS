@@ -62,6 +62,9 @@ class Gsheet():
             
     #Changes made to inv_ext are merged into the sheets page
     def update_sheets(self):
+        
+        self.inventory.clear()
+        
         for row_index, row in enumerate (self.inv_extract):
             range = 'A{row_ind}:H{row_ind}'.format(row_ind = row_index + 1)
             cell_list = self.inventory.range(range)
@@ -70,7 +73,7 @@ class Gsheet():
             
             
             self.inventory.update_cells(cell_list)
-        
+            
         self.refresh()
                 
          

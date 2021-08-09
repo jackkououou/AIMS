@@ -9,5 +9,3 @@ for index, rec in enumerate(title):
     testsheet.add_album(rec, artist[index])
 
 testsheet.update_sheets()
-print(testsheet.get_album(title, artist))
-
