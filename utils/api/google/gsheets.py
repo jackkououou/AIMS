@@ -52,24 +52,26 @@ class Gsheet():
             
     def remove_album(self, title, artist):
         
-        line = 1
-        found = False
-        for row in self.inv_extract:
+        for row_index, row in enumerate (self.inv_extract):
             if(title in row ) and (artist in row ):
-                found = True
-                break
-            else:
-                line += 1
-                
-        if found:
-            self.inventory.delete_row(line)
+                self.inv_extract.pop(row_index)
+                return 1
+       
+        #Album not found and not removed return 0
+        return 0
             
     #Changes made to inv_ext are merged into the sheets page
     def update_sheets(self):
         for row_index, row in enumerate (self.inv_extract):
-            for col_index, col in enumerate (row):
-                print(col)
-                self.inventory.update_cell(row_index + 1, col_index + 1, col)
+            range = 'A{row_ind}:H{row_ind}'.format(row_ind = row_index + 1)
+            cell_list = self.inventory.range(range)
+            for col_index, val in enumerate (row):
+                cell_list[col_index].value = val
+            
+            
+            self.inventory.update_cells(cell_list)
+        
+        self.refresh()
                 
          
     
